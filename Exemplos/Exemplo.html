@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BANCO CENTRAL - EMPRESTIMO</title>
+    <style>
+        h1 {
+            background-color: rgb(1, 35, 66);
+            color: rgb(255, 255, 255);
+            text-align: center;
+        }
+       div#more_info_emprestimo {
+           margin-top: 10px;
+           margin-block-end: 10px;
+           font: normal 12pt Arial;
+       }
+       div#alert_inserir_dados{
+           margin-top: 20px;  
+           margin-block-end: 5px;
+       }
+       div#alert_confirmar {
+            margin-top: 10px; 
+       }
+       div#title_tabela {
+            background-color: rgb(1, 35, 66);
+            color: rgb(255, 255, 255);
+            text-align: center;
+            margin-top: 10px;
+            margin-block-end: 10px;
+       }
+       div#tabela {
+            background-color: rgb(255, 255, 255);
+            color: rgb(0, 0, 0);
+            text-align: center;
+       }
+       input {
+            box-sizing: border-box;
+            margin-block-end: 8px;
+            padding: 0px 40px;
+       }
+
+    </style>
+</head>
+<body>
+    <h1>BANCO CENTRAL</h1>
+    <div id='alert_moreinfo'>Requisitos minimos para o emprestimo:</div>
+    <input type="button" value="mais informações" onmouseenter="emprestimo_mouseentrar()" onmouseout="emprestimo_mousesaiu()">
+    <div id="more_info_emprestimo"></div>
+    <div id="alert_inserir_dados">INSIRA SEUS DADOS ABAIXO</div>
+    <div>seu nome</div>
+    <input type='text' nome="nome" id="client_nome">
+    <div>sua idade</div>
+    <input type="number" nome="idade" id="client_idade">
+    <div>emprego fixo [SIM/NÃO]</div>
+    <input type="text" nome="emprego" id="client_emprego">
+    <div>seu salário</div>
+    <input type="number" nome="salário" id="client_salario">
+    <div>valor do emprestimo</div>
+    <input type="number" nome="emprestimo" id="client_emprestimo">
+    <div id="alert_confirmar">clique no botão abaixo para confirmar</div>
+    <input type="button" value="confirmar" onclick="confirmar()">
+    
+    <div id="title_tabela">
+         SUAS INFORMAÇÕES
+    </div>
+
+    <div id="tabela"></div>
+
+    <script>
+        //more_info_emprestimo
+        txt_info_emprestimo = document.getElementById('more_info_emprestimo')
+        txt_info_emprestimo.eventListener = ('mouseenter', emprestimo_mouseentrar)
+        txt_info_emprestimo.eventListener = ('mouseout', emprestimo_mouseentrar)
+
+        function emprestimo_mouseentrar() {
+            txt_info_emprestimo.innerHTML = `Requisitos minimos para o emprestimo:</br>
+            Maior de 30 anos.</br>
+            Renda de R$3.000,00.</br>
+            Emprego fixo.`
+        }    
+        function emprestimo_mousesaiu() {
+            txt_info_emprestimo.innerHTML = ``
+        }
+        function confirmar() {
+            var client_nometxt = window.document.getElementById('client_nome')
+            var client_nome = String(client_nometxt.value)
+            var client_idadetxt = document.getElementById('client_idade')
+            var client_idade = Number(client_idadetxt.value)
+            var client_empregofixotxt = document.getElementById('client_emprego')
+            var client_empregofixo = String(client_empregofixotxt.value).toUpperCase()
+            var client_salariotxt = document.getElementById('client_salario')
+            var client_salario = Number(client_salariotxt.value)
+            var client_emprestimotxt = document.getElementById('client_emprestimo')
+            var client_emprestimo = Number(client_emprestimotxt.value)
+
+            tabela = document.getElementById('tabela')
+            tabela.innerHTML =
+                `NOME: <strong>${client_nome.toUpperCase()}</strong></br>
+                IDADE: ${client_idade} = <strong>${client_idade >= 30?'APROVADO':'REPROVADO'}</strong></br>
+                EMPREGO FIXO: ${client_empregofixo} = <strong>${client_empregofixo == 'SIM'?'APROVADO':'REPROVADO'}</strong></br>
+                SALÁRIO: ${client_salario.toLocaleString('pt-BR',{style:'currency', currency: 'BRL'})} = <strong>${client_salario >= 3000?"APROVADO":'REPROVADO'}</strong></br>
+                EMPRESTIMO DE: ${client_emprestimo.toLocaleString('pt-BR',{style:'currency', currency: 'BRL'})} = <strong>${client_salario >= ((30/100)*client_emprestimo)?'APROVADO':'REPROVADO'}</strong></br>
+                `
+        }    
+    </script>
+</body>
+</html>
